@@ -16,4 +16,4 @@
 
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/aosp_hammerhead.mk \
-    $(LOCAL_DIR)/omni_hammerhead.mk
+    $(LOCAL_DIR)/du_hammerhead.mk
