@@ -97,6 +97,12 @@ BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
 BOARD_SEPOLICY_DIRS := \
        device/lge/hammerhead/sepolicy
+       
+# Kernel inline build
+TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
+TARGET_KERNEL_CONFIG := custom_hammerhead_defconfig
+TARGET_VARIANT_CONFIG := custom_hammerhead_defconfig
+TARGET_SELINUX_CONFIG := custom_hammerhead_defconfig       
 
 # The list below is order dependent
 BOARD_SEPOLICY_UNION := \
