@@ -1,0 +1,7 @@
+# hardware info
+ro.device.chipset=Qualcomm Snapdragon 800 MSM8974
+ro.device.cpu=2.3GHz quad-core Krait
+ro.device.gpu=Qualcomm Adreno 330
+ro.device.rear_cam=8 MP
+ro.device.front_cam=1.3 MP
+ro.device.screen_res=1080x1920
