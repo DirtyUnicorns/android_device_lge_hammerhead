@@ -1,0 +1,20 @@
+[
+  {
+    "remote": "du",
+    "repository": "android_device_lge_hammerhead",
+    "target_path": "device/lge/hammerhead",
+    "revision": "du44"
+  },
+  {
+    "remote": "du",
+    "repository": "android_kernel_lge_hammerhead",
+    "target_path": "kernel/lge/hammerhead",
+    "revision": "du44"
+  },
+  {
+    "remote": "du",
+    "repository": "proprietary_vendor_lge",
+    "target_path": "vendor/lge",
+    "revision": "du44"
+  }
+]
