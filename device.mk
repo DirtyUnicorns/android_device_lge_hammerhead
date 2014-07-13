@@ -106,6 +106,10 @@ PRODUCT_CHARACTERISTICS := nosdcard
 DEVICE_PACKAGE_OVERLAYS := \
     device/lge/hammerhead/overlay
 
+# Boot Animation
+PRODUCT_COPY_FILES += \
+    vendor/du/bootanimations/bootanimation_1080_1920.zip:system/media/bootanimation.zip
+
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     LiveWallpapersPicker \
