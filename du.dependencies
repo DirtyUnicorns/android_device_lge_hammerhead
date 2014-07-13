@@ -7,7 +7,7 @@
   },
   {
     "remote": "du",
-    "repository": "furnace_kernel_lge_hammerhead",
+    "repository": "android_kernel_lge_hammerhead",
     "target_path": "kernel/lge/hammerhead",
     "revision": "du44"
   },
