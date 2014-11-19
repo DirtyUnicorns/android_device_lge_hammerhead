@@ -19,20 +19,12 @@
 #
 # Everything in this directory will become public
 
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-ifeq ($(USE_SVELTE_KERNEL),true)
-LOCAL_KERNEL := device/lge/hammerhead_svelte-kernel/zImage-dtb
-else
-LOCAL_KERNEL := device/lge/hammerhead-kernel/zImage-dtb
-endif
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-
-PRODUCT_COPY_FILES := \
-    $(LOCAL_KERNEL):kernel
+# Kernel inline
+TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
+TARGET_KERNEL_CONFIG := custom_hammerhead_defconfig
+TARGET_VARIANT_CONFIG := custom_hammerhead_defconfig
+TARGET_SELINUX_CONFIG := custom_hammerhead_defconfig
 
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/init.hammerhead.rc:root/init.hammerhead.rc \
