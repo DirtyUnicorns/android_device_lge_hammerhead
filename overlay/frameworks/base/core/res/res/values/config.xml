@@ -126,12 +126,15 @@
     <integer name="config_defaultNotificationLedOff">9000</integer>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+    <add-resource type="bool" name="config_intrusiveBatteryLed"></add-resource>
     <bool name="config_intrusiveBatteryLed">true</bool>
 
     <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
+    <add-resource type="bool" name="config_multiColorBatteryLed"></add-resource>
     <bool name="config_multiColorBatteryLed">true</bool>
 
     <!-- Does the notification LED support multiple colors? Used to decide if the user can change the colors -->
+    <add-resource type="bool" name="config_multiColorNotificationLed"></add-resource>
     <bool name="config_multiColorNotificationLed">true</bool>
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
@@ -283,6 +286,7 @@
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
+
     <!--  Whether Multiuser UI should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
 
@@ -308,6 +312,7 @@
     <integer name="config_screenBrightnessDoze">17</integer>
 
     <!-- Wether doze feature is enabled by default in settings. -->
+    <add-resource type="bool" name="config_doze_enabled_by_default"></add-resource>
     <bool name="config_doze_enabled_by_default">false</bool>
 
 </resources>
