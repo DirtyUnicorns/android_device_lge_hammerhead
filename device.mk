@@ -109,6 +109,9 @@ PRODUCT_COPY_FILES += \
 # we do this little trick to fall back to the hdpi version
 # if the xhdpi doesn't exist.
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
+
+PRODUCT_TAGS += dalvik.gc.type-precise
+
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 PRODUCT_CHARACTERISTICS := nosdcard
@@ -268,6 +271,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.smgr_mag_cal_en=true \
     ro.qti.sensors.step_detector=true \
     ro.qti.sensors.step_counter=true
+    ro.qti.sensors.tap=false \
+    ro.qti.sensors.facing=false \
+    ro.qti.sensors.tilt=false \
+    ro.qti.sensors.amd=false \
+    ro.qti.sensors.rmd=false \
+    ro.qti.sensors.vmd=false \
+    ro.qti.sensors.pedometer=false \
+    ro.qti.sensors.pam=false \
+    ro.qti.sdk.sensors.gestures=false
 
 # Enable some debug messages by default
 PRODUCT_PROPERTY_OVERRIDES += \
