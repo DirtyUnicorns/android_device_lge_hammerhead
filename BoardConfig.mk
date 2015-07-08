@@ -164,6 +164,9 @@ USE_MINIKIN := true
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
+# Prebuilt Chromium
+USE_PREBUILT_CHROMIUM := true
+
 #TWRP
 DEVICE_RESOLUTION := 1080x1920
 BOARD_HAS_NO_REAL_SDCARD := true
