@@ -26,7 +26,7 @@ $(call inherit-product, vendor/du/config/nfc_enhanced.mk)
 
 PRODUCT_NAME := du_hammerhead
 PRODUCT_DEVICE := hammerhead
-PRODUCT_BRAND := google
+PRODUCT_BRAND := lge
 PRODUCT_MODEL := Nexus 5
 PRODUCT_MANUFACTURER := LGE
 PRODUCT_RESTRICT_VENDOR_FILES := false
