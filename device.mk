@@ -362,7 +362,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false
+    dalvik.vm.dex2oat-swap=false \
+    ro.du.updater=hammerhead
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
