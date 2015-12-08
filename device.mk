@@ -267,7 +267,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.georv=true \
     ro.qti.sensors.smgr_mag_cal_en=true \
     ro.qti.sensors.step_detector=true \
-    ro.qti.sensors.step_counter=true
+    ro.qti.sensors.step_counter=true \
     ro.qti.sensors.tap=false \
     ro.qti.sensors.facing=false \
     ro.qti.sensors.tilt=false \
@@ -317,7 +317,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # If data_no_toggle is 1 then active and dormancy enable at all times.
 # If data_no_toggle is 0 there are no reports if the screen is off.
 # Leaving this property unset defaults to '0'
-#PRODUCT_PROPERTY_OVERRIDES += \
+# Due to RIL changes, setting this to 1 now enables toggling of limited
+# system indications and does not impact data state changes.
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.data_no_toggle=1
 
 # Audio Configuration
@@ -338,7 +340,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp,adb
+    sys.usb.config=mtp,adb \
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0
 
 # Request modem to send PLMN name always irrespective
 # of display condition in EFSPN.
