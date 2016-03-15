@@ -3,5 +3,10 @@
    "repository":  "DirtyUnicorns/android_kernel_lge_hammerhead",
    "target_path": "kernel/lge/hammerhead",
    "branch":      "m"
+ },
+ {
+   "repository":  "DirtyUnicorns/android_vendor_lge",
+   "target_path": "vendor/lge",
+   "branch":      "m"
  }
 ]
