@@ -168,7 +168,8 @@ PRODUCT_PACKAGES += \
     libmmjpeg_interface \
     camera.hammerhead \
     mm-jpeg-interface-test \
-    mm-qcamera-app
+    mm-qcamera-app \
+    Snap
 
 PRODUCT_PACKAGES += \
     keystore.msm8974
@@ -228,7 +229,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=480
+    ro.sf.lcd_density=440
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
@@ -277,6 +278,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.pedometer=false \
     ro.qti.sensors.pam=false \
     ro.qti.sdk.sensors.gestures=false
+
+#Doze mode
+PRODUCT_PACKAGES += \
+     HammerheadDoze
 
 # Enable some debug messages by default
 PRODUCT_PROPERTY_OVERRIDES += \
