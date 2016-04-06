@@ -1,0 +1,13 @@
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/doze/DozeService.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/doze/DozeService.java
+index 4c546ff..31dd1cf 100644
+--- a/frameworks/base/packages/SystemUI/src/com/android/systemui/doze/DozeService.java
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/doze/DozeService.java
+@@ -218,7 +218,7 @@ public class DozeService extends DreamService {
+             // Here we need a wakelock to stay awake until the pulse is finished.
+             mWakeLock.acquire();
+             mPulsing = true;
+-            if (!mDozeParameters.getProxCheckBeforePulse()) {
++            if (!mDozeParameters.getProxCheckBeforePulse(reason)) {
+                 // skip proximity check
+                 continuePulsing(reason);
+                 return;

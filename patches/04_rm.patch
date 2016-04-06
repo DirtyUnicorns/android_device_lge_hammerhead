@@ -1,0 +1,21 @@
+diff --git a/build/target/product/core.mk b/build/target/product/core.mk
+index 528271d..646f5bb 100644
+--- a/build/target/product/core.mk
++++ b/build/target/product/core.mk
+@@ -22,8 +22,6 @@
+ 
+ PRODUCT_PACKAGES += \
+     BasicDreams \
+-    Browser \
+-    Calendar \
+     CalendarProvider \
+     CaptivePortalLogin \
+     CertInstaller \
+@@ -31,7 +29,6 @@ PRODUCT_PACKAGES += \
+     DeskClock \
+     DocumentsUI \
+     DownloadProviderUi \
+-    Email \
+     ExactCalculator \
+     ExternalStorageProvider \
+     FusedLocation \

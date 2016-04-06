@@ -1,0 +1,22 @@
+diff --git a/build/target/product/full_base.mk b/build/target/product/full_base.mk
+index 47b89ec..9fc371d 100644
+--- a/build/target/product/full_base.mk
++++ b/build/target/product/full_base.mk
+@@ -21,17 +21,8 @@
+ 
+ PRODUCT_PACKAGES := \
+     libfwdlockengine \
+-    OpenWnn \
+-    libWnnEngDic \
+-    libWnnJpnDic \
+-    libwnndict \
+     WAPPushManager
+ 
+-PRODUCT_PACKAGES += \
+-    LiveWallpapersPicker \
+-    PhaseBeam \
+-    PhotoTable
+-
+ # Additional settings used in all AOSP builds
+ PRODUCT_PROPERTY_OVERRIDES := \
+     ro.config.ringtone=Titania.ogg \

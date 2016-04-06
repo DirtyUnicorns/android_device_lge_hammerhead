@@ -1,0 +1,11 @@
+diff --git a/build/target/product/aosp_base_telephony.mk b/build/target/product/aosp_base_telephony.mk
+index 0d4e333..f326a00 100644
+--- a/build/target/product/aosp_base_telephony.mk
++++ b/build/target/product/aosp_base_telephony.mk
+@@ -14,6 +14,3 @@
+ # limitations under the License.
+ #
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+-
+-PRODUCT_PACKAGES += \
+-    messaging

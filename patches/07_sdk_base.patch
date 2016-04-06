@@ -1,0 +1,19 @@
+diff --git a/build/target/product/sdk_base.mk b/build/target/product/sdk_base.mk
+index c1e6f60..0d8691b 100644
+--- a/build/target/product/sdk_base.mk
++++ b/build/target/product/sdk_base.mk
+@@ -30,14 +30,8 @@ PRODUCT_PACKAGES := \
+ 	Launcher3 \
+ 	LegacyCamera \
+ 	librs_jni \
+-	libwnndict \
+-	libWnnEngDic \
+-	libWnnJpnDic \
+ 	LiveWallpapersPicker \
+ 	Mms \
+-	Music \
+-	OpenWnn \
+-	Protips \
+ 	rild \
+ 	SdkSetup \
+ 	SmokeTest \

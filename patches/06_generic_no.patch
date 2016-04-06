@@ -1,0 +1,27 @@
+diff --git a/build/target/product/generic_no_telephony.mk b/build/target/product/generic_no_telephony.mk
+index 52fe541..b9f61dd 100644
+--- a/build/target/product/generic_no_telephony.mk
++++ b/build/target/product/generic_no_telephony.mk
+@@ -20,8 +20,6 @@
+ PRODUCT_PACKAGES := \
+     Bluetooth \
+     BluetoothMidiService \
+-    Camera2 \
+-    Gallery2 \
+     MusicFX \
+     OneTimeInitializer \
+     Provision \
+@@ -35,12 +33,7 @@ PRODUCT_PACKAGES += \
+     screenrecord
+ 
+ PRODUCT_PACKAGES += \
+-    librs_jni \
+-    libvideoeditor_jni \
+-    libvideoeditor_core \
+-    libvideoeditor_osal \
+-    libvideoeditor_videofilters \
+-    libvideoeditorplayer \
++    librs_jni
+ 
+ PRODUCT_PACKAGES += \
+     audio.primary.default \

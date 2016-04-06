@@ -19,12 +19,6 @@
 #
 # Everything in this directory will become public
 
-# Kernel Inline
-TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
-TARGET_KERNEL_CONFIG := hammerhead_defconfig
-TARGET_VARIANT_CONFIG := hammerhead_defconfig
-TARGET_SELINUX_CONFIG := hammerhead_defconfig
-
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/init.hammerhead.rc:root/init.hammerhead.rc \
     device/lge/hammerhead/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
@@ -232,6 +226,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=440
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.locale=zh-rCN
+
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -269,9 +266,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.smgr_mag_cal_en=true \
     ro.qti.sensors.step_detector=true \
     ro.qti.sensors.step_counter=true \
+    ro.qti.sensors.pick_up=false \
     ro.qti.sensors.tap=false \
     ro.qti.sensors.facing=false \
     ro.qti.sensors.tilt=false \
+    ro.qti.sensors.tilt_detector=true \
     ro.qti.sensors.amd=false \
     ro.qti.sensors.rmd=false \
     ro.qti.sensors.vmd=false \
@@ -371,8 +370,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false \
-    ro.du.updater=hammerhead
+    dalvik.vm.dex2oat-swap=false
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
