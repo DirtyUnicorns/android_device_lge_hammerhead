@@ -17,7 +17,7 @@ index 0ea1b9e..47d5cfe 100644
  PRODUCT_PACKAGES += \
 -    DU-About \
      LatinIME \
-+    RootExplorer \
++    ViPER4Android \
      BluetoothExt \
 -    CalendarWidget \
      OmniSwitch \
@@ -28,7 +28,7 @@ index 0ea1b9e..47d5cfe 100644
  
  # Versioning System
 -ANDROID_VERSION = 6.0.1
-+ANDROID_VERSION = 6.0.1_r24_MHC19Q
++ANDROID_VERSION = 6.0.1_r43
  DU_VERSION = v10.0
 -ifndef DU_BUILD_TYPE
 -    DU_BUILD_TYPE := DIRTY-DEEDS
@@ -40,8 +40,8 @@ index 0ea1b9e..47d5cfe 100644
 -PRODUCT_PACKAGES += \
 -    DU-Updater
 -endif
-+DU_BUILD_TYPE := DIRTY-DEEDS-Amy07i
-+PLATFORM_VERSION_CODENAME := DIRTY-DEEDS-Amy07i
++DU_BUILD_TYPE := DIRTY-DIY
++PLATFORM_VERSION_CODENAME := DIRTY-DIY
  
  # Set all versions
  DU_VERSION := DU_$(DU_BUILD)_$(ANDROID_VERSION)_$(shell date -u +%Y%m%d-%H%M).$(DU_VERSION)-$(DU_BUILD_TYPE)
