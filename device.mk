@@ -223,7 +223,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=440
+    ro.sf.lcd_density=400
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.locale=zh-rCN
