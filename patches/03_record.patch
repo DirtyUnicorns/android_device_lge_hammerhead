@@ -1,0 +1,13 @@
+diff --git a/build/tools/buildinfo.sh b/build/tools/buildinfo.sh
+index f0e6349..d37c9b0 100755
+--- a/build/tools/buildinfo.sh
++++ b/build/tools/buildinfo.sh
+@@ -23,6 +23,8 @@ echo "ro.build.flavor=$TARGET_BUILD_FLAVOR"
+ echo "ro.product.brand=$PRODUCT_BRAND"
+ echo "ro.product.name=$PRODUCT_NAME"
+ echo "ro.product.board=$TARGET_BOOTLOADER_BOARD_NAME"
++echo "persist.call_recording.enabled=true"
++echo "persist.call_recording.src=4"
+ 
+ # These values are deprecated, use "ro.product.cpu.abilist"
+ # instead (see below).
