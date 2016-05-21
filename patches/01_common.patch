@@ -1,47 +1,22 @@
-diff --git a/vendor/du/config/common.mk b/vendor/du/config/common.mk
-index 0ea1b9e..47d5cfe 100644
---- a/vendor/du/config/common.mk
-+++ b/vendor/du/config/common.mk
-@@ -77,19 +77,11 @@ PRODUCT_PACKAGES += \
-     Development \
-     SpareParts
+diff --git a/vendor/du/config/packages.mk b/vendor/du/config/packages.mk
+index 6b805d8..e576a14 100644
+--- a/vendor/du/config/packages.mk
++++ b/vendor/du/config/packages.mk
+@@ -10,15 +10,10 @@ PRODUCT_PACKAGES += \
  
--# Optional packages
--PRODUCT_PACKAGES += \
--    Basic \
--    PhaseBeam \
--    Chromium \
--    DUCertified
--
- # Extra Optional packages
+ # Optional packages
  PRODUCT_PACKAGES += \
--    DU-About \
-     LatinIME \
-+    ViPER4Android \
-     BluetoothExt \
+-    Basic \
 -    CalendarWidget \
-     OmniSwitch \
-     LockClock
+-    Chromium \
+-    DU-About \
+-    DUCertified \
+     LatinIME \
+     LockClock \
+-    OmniSwitch \
+-    PhaseBeam
++    ViPER4Android \
++    OmniSwitch
  
-@@ -132,18 +124,10 @@ PRODUCT_COPY_FILES += \
-     vendor/du/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon
- 
- # Versioning System
--ANDROID_VERSION = 6.0.1
-+ANDROID_VERSION = 6.0.1_r43
- DU_VERSION = v10.0
--ifndef DU_BUILD_TYPE
--    DU_BUILD_TYPE := DIRTY-DEEDS
--    PLATFORM_VERSION_CODENAME := DIRTY-DEEDS
--endif
--
--#Build DU-Updater only if DU_BUILD_TYPE isn't DIRTY-DEEDS
--ifneq ($(DU_BUILD_TYPE),DIRTY-DEEDS)
--PRODUCT_PACKAGES += \
--    DU-Updater
--endif
-+DU_BUILD_TYPE := DIRTY-DIY
-+PLATFORM_VERSION_CODENAME := DIRTY-DIY
- 
- # Set all versions
- DU_VERSION := DU_$(DU_BUILD)_$(ANDROID_VERSION)_$(shell date -u +%Y%m%d-%H%M).$(DU_VERSION)-$(DU_BUILD_TYPE)
+ # Extra tools
+ PRODUCT_PACKAGES += \
