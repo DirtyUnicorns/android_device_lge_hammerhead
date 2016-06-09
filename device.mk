@@ -281,6 +281,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Doze mode
 PRODUCT_PACKAGES += \
      HammerheadDoze
+    
+#Gello 
+PRODUCT_PACKAGES += \
+	 Gello
 
 # Enable some debug messages by default
 PRODUCT_PROPERTY_OVERRIDES += \
