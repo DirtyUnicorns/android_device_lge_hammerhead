@@ -226,9 +226,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=400
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale=zh-rCN
-
-PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -266,7 +263,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.smgr_mag_cal_en=true \
     ro.qti.sensors.step_detector=true \
     ro.qti.sensors.step_counter=true \
-    ro.qti.sensors.pick_up=true \
+    ro.qti.sensors.pick_up=false \
     ro.qti.sensors.tap=false \
     ro.qti.sensors.facing=false \
     ro.qti.sensors.tilt=false \
@@ -280,11 +277,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #Doze mode
 PRODUCT_PACKAGES += \
-     HammerheadDoze
+    HammerheadDoze
     
 #Gello 
 PRODUCT_PACKAGES += \
-	 Gello
+    Gello
 
 # Enable some debug messages by default
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -303,6 +300,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Enable AAC 5.1 output
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true
+    
+# Supports Camera new API2
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.HAL3.enabled=1
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
