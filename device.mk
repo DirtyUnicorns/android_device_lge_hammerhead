@@ -279,10 +279,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     HammerheadDoze
     
-#Gello 
-PRODUCT_PACKAGES += \
-    Gello
-
 # Enable some debug messages by default
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=w \
