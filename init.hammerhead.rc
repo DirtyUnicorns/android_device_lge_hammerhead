@@ -18,6 +18,9 @@ import init.hammerhead.usb.rc
 import init.hammerhead_svelte.rc
 import init.hammerhead.diag.rc
 import init.hammerhead_fp.rc
+import init.fk.rc
+import init.performance_profiles.rc
+import init.supolicy.sh
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -167,30 +170,19 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
     # Set the CPU Freq Sampling rates
-    write /sys/module/msm_thermal/core_control/enabled 0
+    #write /sys/module/msm_thermal/core_control/enabled 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "ondemand"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "ondemand"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "ondemand"
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "ondemand"
-    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
-    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 50000
-    write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
-    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor 4
-    write /sys/devices/system/cpu/cpufreq/ondemand/down_differential 10
-    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_multi_core 80
-    write /sys/devices/system/cpu/cpufreq/ondemand/down_differential_multi_core 3
-    write /sys/devices/system/cpu/cpufreq/ondemand/optimal_freq 300000
-    write /sys/devices/system/cpu/cpufreq/ondemand/sync_freq 300000
-    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load 80
-    restorecon_recursive /sys/devices/system/cpu/cpufreq/ondemand
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
-    write /sys/module/msm_thermal/core_control/enabled 1
+    #write /sys/module/msm_thermal/core_control/enabled 1
     chown root.system /sys/devices/system/cpu/mfreq
     chmod 220 /sys/devices/system/cpu/mfreq
     chown root.system /sys/devices/system/cpu/cpu1/online
@@ -199,7 +191,10 @@ on post-fs-data
     chmod 664 /sys/devices/system/cpu/cpu1/online
     chmod 664 /sys/devices/system/cpu/cpu2/online
     chmod 664 /sys/devices/system/cpu/cpu3/online
-    write /dev/cpuctl/apps/cpu.notify_on_migrate 1
+    write /dev/cpuctl/apps/cpu.notify_on_migrate 0
+
+    # Allows franco.Kernel updater to know this feature is supported
+    setprop fku.profiles 1
 
 on charger
     # Booting modem
@@ -220,7 +215,7 @@ on charger
     write /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
-    write /sys/module/msm_thermal/core_control/enabled 0
+    #write /sys/module/msm_thermal/core_control/enabled 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -232,11 +227,11 @@ on charger
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
-    write /sys/module/msm_thermal/core_control/enabled 1
+    #write /sys/module/msm_thermal/core_control/enabled 1
     write /sys/devices/system/cpu/cpu1/online 0
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
-    start mpdecision
+    #start mpdecision
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -264,7 +259,7 @@ on property:sys.boot_completed=1
     write /sys/module/pm_8x60/modes/cpu1/retention/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu2/retention/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu3/retention/idle_enabled 1
-    start mpdecision
+    #start mpdecision
 
     # enable slimport detection
     write /sys/module/slimport/parameters/enable_irq 1
@@ -272,44 +267,13 @@ on property:sys.boot_completed=1
     # enable logging of wake up reasons to kernel logs
     write /sys/module/msm_show_resume_irq/parameters/debug_mask 1
 
-    #ElementalX setting
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor elementalx
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor elementalx
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor elementalx
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor elementalx
-
-    write /sys/devices/platform/msm_sleeper/enabled 0
-    write /sys/android_touch/sweep2wake 0
-    write /sys/android_touch/doubletap2wake 0
-    write /sys/android_touch/sweep2sleep 0
-    write /sys/android_touch/vib_strength 0
-    write /sys/module/qpnp_power_on/parameters/pwrkey_suspend 0
-    write /sys/android_touch/wake_timeout 0
-    write /sys/android_touch/camera_gesture 0
-    write /sys/kernel/fast_charge/force_fast_charge 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max 1
-    write /sys/module/mdss_dsi/parameters/color_preset 0
-    write /sys/module/lm3630_bl/parameters/backlight_dimmer 1
-    write /sys/module/sync/parameters/fsync_enabled 1
-    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
-    write /sys/class/timed_output/vibrator/amp 63
-    write /sys/block/mmcblk0/queue/scheduler deadline
-    write /sys/block/mmcblk0/queue/read_ahead_kb 256
-    write /sys/devices/system/cpu/cpufreq/elementalx/gboost 1
-    
-    # KSM
-    write /sys/kernel/mm/ksm/sleep_millisecs 1500
-    write /sys/kernel/mm/ksm/pages_to_scan 256
-    write /sys/kernel/mm/ksm/deferred_timer 1
-    write /sys/kernel/mm/ksm/run 1
-
 #on property:ro.debuggable=1
 #    start ssr_ramdump
 
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group system
+    group system wakelock
 
 service bridgemgrd /system/bin/bridgemgrd
     class main
@@ -320,7 +284,7 @@ service bridgemgrd /system/bin/bridgemgrd
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps
+    group radio audio bluetooth gps wakelock
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -330,7 +294,7 @@ service netmgrd /system/bin/netmgrd
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    group root wakelock
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -453,11 +417,11 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
-service mpdecision /system/bin/mpdecision --avg_comp --Nw=1:1.99 --Nw=2:2.99 --Nw=3:3.99 --Tw=2:140 --Tw=3:140 --Ts=2:190 --Ts=3:190
-   class main
-   user root
-   group root system
-   disabled
+#service mpdecision /system/bin/mpdecision --avg_comp --Nw=1:1.99 --Nw=2:2.99 --Nw=3:3.99 --Tw=2:140 --Tw=3:140 --Ts=2:190 --Ts=3:190
+#   class main
+#   user root
+#   group root system
+#   disabled
 
 service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc
     class main
@@ -465,10 +429,10 @@ service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc
     group root
     disabled
 
-service thermal-engine /system/bin/thermal-engine-hh
-   class main
-   user root
-   group radio system
+#service thermal-engine /system/bin/thermal-engine-hh
+#   class main
+#   user root
+#   group radio system
 
 service vss_init /vendor/bin/vss_init
     class late_start
