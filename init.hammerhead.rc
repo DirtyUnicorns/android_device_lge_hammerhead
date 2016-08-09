@@ -18,13 +18,11 @@ import init.hammerhead.usb.rc
 import init.hammerhead_svelte.rc
 import init.hammerhead.diag.rc
 import init.hammerhead_fp.rc
-import init.fk.rc
-import init.performance_profiles.rc
-import init.supolicy.sh
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
 on init
     # Set permissions for persist partition
@@ -127,7 +125,7 @@ on post-fs-data
 
     # Subsytem Ramdump collection
     mkdir /data/tombstones/ramdump 0777 system system
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
+    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
 
     # NFC: create data/nfc for nv storage
     mkdir /data/nfc 0770 nfc nfc
@@ -158,7 +156,7 @@ on post-fs-data
     chmod 660 /persist/sensors/sensors_settings
 
     # communicate with mpdecision and thermald
-    mkdir /dev/socket/mpdecision 2770 root system
+    # mkdir /dev/socket/mpdecision 2770 root system
 
     # save rtc time offsets
     mkdir /data/system/time 0700 system system
@@ -170,19 +168,50 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
     # Set the CPU Freq Sampling rates
-    #write /sys/module/msm_thermal/core_control/enabled 0
+    # write /sys/module/msm_thermal/core_control/enabled 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "conservative"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "conservative"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "conservative"
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 50000
+    write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor 4
+    write /sys/devices/system/cpu/cpufreq/ondemand/down_differential 10
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_multi_core 70
+    write /sys/devices/system/cpu/cpufreq/ondemand/down_differential_multi_core 3
+    write /sys/devices/system/cpu/cpufreq/ondemand/optimal_freq 960000
+    write /sys/devices/system/cpu/cpufreq/ondemand/sync_freq 960000
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load 80
+    restorecon_recursive /sys/devices/system/cpu/cpufreq/ondemand
+	
+    # blu_active
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "blu_active"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "blu_active"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "blu_active"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "blu_active"
+    write /sys/devices/system/cpu/cpufreq/blu_active/hispeed_freq 1497600
+    write /sys/devices/system/cpu/cpufreq/blu_active/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpufreq/blu_active/min_sample_time 40000
+    write /sys/devices/system/cpu/cpufreq/blu_active/timer_rate 30000
+    write /sys/devices/system/cpu/cpufreq/blu_active/above_hispeed_delay "20000 1400000:40000 1700000:20000"
+    write /sys/devices/system/cpu/cpufreq/blu_active/boostpulse_duration 500000
+    write /sys/devices/system/cpu/cpufreq/blu_active/timer_slack 30000
+    write /sys/devices/system/cpu/cpufreq/blu_active/io_is_busy 1
+	write /sys/devices/system/cpu/cpufreq/blu_active/target_loads "85 1500000:90 1800000:70"
+    write /sys/devices/system/cpu/cpufreq/blu_active/input_boost_freq 1190400
+    write /sys/devices/system/cpu/cpufreq/blu_active/max_freq_hysteresis 100000
+    write /sys/devices/system/cpu/cpufreq/blu_active/low_load_down_threshold 5
+	write /sys/devices/system/cpu/cpufreq/blu_active/fastlane 0
+	
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
-    #write /sys/module/msm_thermal/core_control/enabled 1
+    # write /sys/module/msm_thermal/core_control/enabled 1
     chown root.system /sys/devices/system/cpu/mfreq
     chmod 220 /sys/devices/system/cpu/mfreq
     chown root.system /sys/devices/system/cpu/cpu1/online
@@ -191,11 +220,14 @@ on post-fs-data
     chmod 664 /sys/devices/system/cpu/cpu1/online
     chmod 664 /sys/devices/system/cpu/cpu2/online
     chmod 664 /sys/devices/system/cpu/cpu3/online
-    write /dev/cpuctl/apps/cpu.notify_on_migrate 0
+    write /dev/cpuctl/apps/cpu.notify_on_migrate 1
 
-    # Allows franco.Kernel updater to know this feature is supported
-    setprop fku.profiles 1
-
+    # Hardware tunables
+    chown system system /sys/devices/virtual/timed_output/vibrator/amp
+    chmod 0666 /sys/devices/virtual/timed_output/vibrator/amp
+    chown system system /sys/devices/virtual/graphics/fb0/rgb
+    chmod 0666 /sys/devices/virtual/graphics/fb0/rgb
+	
 on charger
     # Booting modem
     wait /dev/block/platform/msm_sdcc.1/by-name/modem
@@ -215,23 +247,23 @@ on charger
     write /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled 1
     write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
-    #write /sys/module/msm_thermal/core_control/enabled 0
+    # write /sys/module/msm_thermal/core_control/enabled 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
-    #write /sys/module/msm_thermal/core_control/enabled 1
+    # write /sys/module/msm_thermal/core_control/enabled 1
     write /sys/devices/system/cpu/cpu1/online 0
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
-    #start mpdecision
+    # start mpdecision
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -259,21 +291,26 @@ on property:sys.boot_completed=1
     write /sys/module/pm_8x60/modes/cpu1/retention/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu2/retention/idle_enabled 1
     write /sys/module/pm_8x60/modes/cpu3/retention/idle_enabled 1
-    #start mpdecision
-
+    # start mpdecision
+	
+    # Extras
+	write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "simple"
+    write /sys/block/mmcblk0/queue/scheduler fiops
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+	
     # enable slimport detection
     write /sys/module/slimport/parameters/enable_irq 1
 
     # enable logging of wake up reasons to kernel logs
-    write /sys/module/msm_show_resume_irq/parameters/debug_mask 1
+    # write /sys/module/msm_show_resume_irq/parameters/debug_mask 1
 
-#on property:ro.debuggable=1
-#    start ssr_ramdump
+# on property:ro.debuggable=1
+    # start ssr_ramdump
 
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group system wakelock
+    group system
 
 service bridgemgrd /system/bin/bridgemgrd
     class main
@@ -284,7 +321,7 @@ service bridgemgrd /system/bin/bridgemgrd
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps wakelock
+    group radio audio bluetooth gps
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -294,7 +331,7 @@ service netmgrd /system/bin/netmgrd
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root wakelock
+    group root
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -410,18 +447,18 @@ service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -
     oneshot
 
 # bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
+# service bugreport /system/bin/dumpstate -d -p -B \
+#         -o /data/data/com.android.shell/files/bugreports/bugreport
+#     class main
+#     disabled
+#     oneshot
+#     keycodes 114 115 116
 
-#service mpdecision /system/bin/mpdecision --avg_comp --Nw=1:1.99 --Nw=2:2.99 --Nw=3:3.99 --Tw=2:140 --Tw=3:140 --Ts=2:190 --Ts=3:190
-#   class main
-#   user root
-#   group root system
-#   disabled
+# service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+#    class main
+#    user root
+#    group root system
+#    disabled
 
 service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc
     class main
@@ -429,10 +466,10 @@ service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc
     group root
     disabled
 
-#service thermal-engine /system/bin/thermal-engine-hh
-#   class main
-#   user root
-#   group radio system
+# service thermal-engine /system/bin/thermal-engine-hh
+#    class main
+#    user root
+#    group radio system
 
 service vss_init /vendor/bin/vss_init
     class late_start
