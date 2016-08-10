@@ -1,0 +1,16 @@
+diff --git a/frameworks/base/packages/SystemUI/res/values/du_dimens.xml b/frameworks/base/packages/SystemUI/res/values/du_dimens.xml
+index 1d700ac..f9a6b7b 100644
+--- a/frameworks/base/packages/SystemUI/res/values/du_dimens.xml
++++ b/frameworks/base/packages/SystemUI/res/values/du_dimens.xml
+@@ -27,9 +27,9 @@
+ 
+     <dimen name="zen_mode_panel_radius">@dimen/notification_material_rounded_rect_radius</dimen>
+ 
+-    <dimen name="status_bar_expanded_header_elevation">4dp</dimen>
++    <dimen name="status_bar_expanded_header_elevation">0.0dp</dimen>
+ 
+-    <dimen name="volume_panel_z">4dp</dimen>
++    <dimen name="volume_panel_z">0.0dp</dimen>
+ 
+     <!-- Side padding for the status bar header -->
+     <dimen name="notification_header_side_padding">@dimen/notification_side_padding</dimen>
