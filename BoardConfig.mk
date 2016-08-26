@@ -22,6 +22,7 @@ TARGET_CPU_VARIANT := krait
 
 TARGET_NO_BOOTLOADER := true
 
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 
@@ -137,6 +138,9 @@ MALLOC_IMPL := dlmalloc
 endif
 
 -include vendor/lge/hammerhead/BoardConfigVendor.mk
+
+# Enable workaround for slow rom flash
+NO_SECURE_DISCARD := true
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
