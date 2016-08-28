@@ -70,11 +70,6 @@ public class DozeService extends Service {
             Settings.Secure.DOZE_ENABLED, 1) != 0;
     }
 
-    private boolean isPickupEnabled() {
-        return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.DOZE_PULSE_ON_PICKUP, 1) != 0;
-    }
-
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
         mTiltSensor.disable();
@@ -82,7 +77,7 @@ public class DozeService extends Service {
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
-        if (isDozeEnabled() && isPickupEnabled()) {
+        if (isDozeEnabled()) {
             mTiltSensor.enable();
         }
     }
