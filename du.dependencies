@@ -12,6 +12,6 @@
  {
    "repository":  "NickDoherty81/android_hardware_qcom_msm8x74",
    "target_path": "hardware/qcom/msm8x74",
-   "branch":      "m"
+   "branch":      "n"
  }
 ]
