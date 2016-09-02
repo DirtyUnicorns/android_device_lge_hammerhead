@@ -1,16 +1,16 @@
 [
  {
-   "repository":  "NickDoherty81/android_kernel_lge_hammerhead",
+   "repository":  "DirtyUnicorns/android_kernel_lge_hammerhead",
    "target_path": "kernel/lge/hammerhead",
    "branch":      "n"
  },
  {
    "repository":  "DirtyUnicorns/android_vendor_lge",
    "target_path": "vendor/lge",
-   "branch":      "m"
+   "branch":      "n"
  },
  {
-   "repository":  "NickDoherty81/android_hardware_qcom_msm8x74",
+   "repository":  "DirtyUnicorns/android_hardware_qcom_msm8x74",
    "target_path": "hardware/qcom/msm8x74",
    "branch":      "n"
  }
