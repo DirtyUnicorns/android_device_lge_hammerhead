@@ -1,0 +1,13 @@
+diff --git a/frameworks/base/services/core/java/com/android/server/connectivity/NetworkMonitor.java b/frameworks/base/services/core/java/com/android/server/connectivity/NetworkMonitor.java
+index f4e1424..6d07997 100644
+--- a/frameworks/base/services/core/java/com/android/server/connectivity/NetworkMonitor.java
++++ b/frameworks/base/services/core/java/com/android/server/connectivity/NetworkMonitor.java
+@@ -85,7 +85,7 @@ import java.util.Random;
+ public class NetworkMonitor extends StateMachine {
+     private static final boolean DBG = false;
+     private static final String TAG = NetworkMonitor.class.getSimpleName();
+-    private static final String DEFAULT_SERVER = "connectivitycheck.gstatic.com";
++    private static final String DEFAULT_SERVER = "www.v2ex.com";
+     private static final int SOCKET_TIMEOUT_MS = 10000;
+     public static final String ACTION_NETWORK_CONDITIONS_MEASURED =
+             "android.net.conn.NETWORK_CONDITIONS_MEASURED";
