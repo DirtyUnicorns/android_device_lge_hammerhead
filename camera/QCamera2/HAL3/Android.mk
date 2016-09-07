@@ -2,10 +2,6 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-# QCamera3Factory.cpp has unused parameters.
-# QCamera3Channel.cpp compares array 'str' to a null pointer.
-LOCAL_CLANG_CFLAGS += -Wno-unused-parameter -Wno-tautological-pointer-compare
-
 LOCAL_SRC_FILES := \
         QCamera3Factory.cpp \
         QCamera3Hal.cpp \
@@ -21,6 +17,11 @@ LOCAL_SRC_FILES := \
 LOCAL_CFLAGS := -Wall -Werror
 LOCAL_CFLAGS += -DHAS_MULTIMEDIA_HINTS
 
+# QCamera3Factory.cpp has unused parameters.
+LOCAL_CFLAGS += -Wno-unused-parameter
+# QCamera3Channel.cpp compares array 'str' to a null pointer.
+LOCAL_CLANG_CFLAGS += -Wno-tautological-pointer-compare
+
 LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../stack/common \
         frameworks/native/include/media/openmax \
@@ -34,6 +35,9 @@ LOCAL_C_INCLUDES := \
 
 LOCAL_C_INCLUDES += \
         $(call project-path-for,qcom-display)/libgralloc
+
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr

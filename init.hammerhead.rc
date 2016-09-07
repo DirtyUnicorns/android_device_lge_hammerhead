@@ -199,22 +199,18 @@ on post-fs-data
     write /sys/devices/system/cpu/cpufreq/blu_active/boostpulse_duration 500000
     write /sys/devices/system/cpu/cpufreq/blu_active/timer_slack 30000
     write /sys/devices/system/cpu/cpufreq/blu_active/io_is_busy 1
-	write /sys/devices/system/cpu/cpufreq/blu_active/target_loads "85 1500000:90 1800000:70"
+    write /sys/devices/system/cpu/cpufreq/blu_active/target_loads "85 1500000:90 1800000:70"
     write /sys/devices/system/cpu/cpufreq/blu_active/input_boost_freq 1190400
     write /sys/devices/system/cpu/cpufreq/blu_active/max_freq_hysteresis 100000
     write /sys/devices/system/cpu/cpufreq/blu_active/low_load_down_threshold 5
-	write /sys/devices/system/cpu/cpufreq/blu_active/fastlane 0
+    write /sys/devices/system/cpu/cpufreq/blu_active/fastlane 0
 	
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
     # write /sys/module/msm_thermal/core_control/enabled 1
-    chown root.system /sys/devices/system/cpu/mfreq
     chmod 220 /sys/devices/system/cpu/mfreq
-    chown root.system /sys/devices/system/cpu/cpu1/online
-    chown root.system /sys/devices/system/cpu/cpu2/online
-    chown root.system /sys/devices/system/cpu/cpu3/online
     chmod 664 /sys/devices/system/cpu/cpu1/online
     chmod 664 /sys/devices/system/cpu/cpu2/online
     chmod 664 /sys/devices/system/cpu/cpu3/online
@@ -289,7 +285,7 @@ on property:sys.boot_completed=1
     # start mpdecision
 	
     # Extras
-	write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "simple"
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor "simple"
     write /sys/block/mmcblk0/queue/scheduler fiops
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 	
@@ -305,7 +301,7 @@ on property:sys.boot_completed=1
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group system
+    group system wakelock
 
 service bridgemgrd /system/bin/bridgemgrd
     class main
@@ -316,7 +312,7 @@ service bridgemgrd /system/bin/bridgemgrd
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps
+    group radio audio bluetooth wakelock gps
 
 service netmgrd /system/bin/netmgrd
     class main

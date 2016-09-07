@@ -24,11 +24,8 @@ TARGET_USE_KRAIT_PLD_SET := true
 
 TARGET_NO_BOOTLOADER := true
 
-#BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-#TARGET_KERNEL_CONFIG := elementalx_defconfig
-
 
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 maxcpus=2 msm_watchdog_v2.enable=1
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02900000 --tags_offset 0x02700000
@@ -142,10 +139,15 @@ USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
 USE_DEVICE_SPECIFIC_CAMERA:= true
 
 ifeq ($(USE_SVELTE_KERNEL),true)
-MALLOC_IMPL := dlmalloc
+MALLOC_SVELTE := true
 endif
 
+USE_CLANG_PLATFORM_BUILD := true
+
 -include vendor/lge/hammerhead/BoardConfigVendor.mk
+
+# Enable workaround for slow rom flash
+NO_SECURE_DISCARD := true
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
