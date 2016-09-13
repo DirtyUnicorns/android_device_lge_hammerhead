@@ -18,15 +18,16 @@
 
 void dumpstate_board()
 {
-    dump_file("INTERRUPTS", "/proc/interrupts");
-    dump_file("Power Management Stats", "/proc/msm_pm_stats");
-    run_command("SUBSYSTEM TOMBSTONES", 5, SU_PATH, "root", "ls", "-l", "/data/tombstones/ramdump", NULL);
-    dump_file("BAM DMUX Log", "/d/ipc_logging/bam_dmux/log");
-    dump_file("SMD Log", "/d/ipc_logging/smd/log");
-    dump_file("SMD PKT Log", "/d/ipc_logging/smd_pkt/log");
-    dump_file("IPC Router Log", "/d/ipc_logging/ipc_router/log");
-    run_command("ION HEAPS", 5, SU_PATH, "root", "/system/bin/sh", "-c", "for f in $(ls /d/ion/*); do echo $f; cat $f; done", NULL);
-    dump_file("RPM Master Stats", "/d/rpm_master_stats");
-    dump_file("RPM stats", "/d/rpm_stats");
-    run_command("RPM log", 5, SU_PATH, "root", "/system/bin/sh", "-c", "head -1024 /d/rpm_log", NULL);
+    Dumpstate& ds = Dumpstate::GetInstance();
+    ds.DumpFile("INTERRUPTS", "/proc/interrupts");
+    ds.DumpFile("Power Management Stats", "/proc/msm_pm_stats");
+    ds.RunCommand("Subsystem Tombstone list", {"ls", "-l", "/data/tombstones/ramdump"}, CommandOptions::AS_ROOT_5);
+    ds.DumpFile("BAM DMUX Log", "/d/ipc_logging/bam_dmux/log");
+    ds.DumpFile("SMD Log", "/d/ipc_logging/smd/log");
+    ds.DumpFile("SMD PKT Log", "/d/ipc_logging/smd_pkt/log");
+    ds.DumpFile("IPC Router Log", "/d/ipc_logging/ipc_router/log");
+    ds.RunCommand("ION HEAPS",   {"/system/bin/sh", "-c", "for f in $(ls /d/ion/heaps/*);   do echo $f; cat $f; done"}, CommandOptions::AS_ROOT_5);
+    ds.DumpFile("RPM Master Stats", "/d/rpm_master_stats");
+    ds.DumpFile("RPM stats", "/d/rpm_stats");
+    ds.RunCommand("RPM log",   {"/system/bin/sh", "-c", "head -1024 /d/rpm_log"}, CommandOptions::AS_ROOT_5);
 };
