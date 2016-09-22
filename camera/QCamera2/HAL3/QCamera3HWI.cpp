@@ -904,7 +904,6 @@ int QCamera3HardwareInterface::configureStreams(
                 gCamCapability[mCameraId]->active_array_size.width,
                 gCamCapability[mCameraId]->active_array_size.height);
 
-    int32_t hal_version = CAM_HAL_V3;
     stream_config_info.num_streams = streamList->num_streams;
     if (mSupportChannel) {
         stream_config_info.stream_sizes[stream_config_info.num_streams] =
@@ -914,17 +913,7 @@ int QCamera3HardwareInterface::configureStreams(
         stream_config_info.num_streams++;
     }
 
-    // settings/parameters don't carry over for new configureStreams
-    memset(mParameters, 0, sizeof(metadata_buffer_t));
-
-    mParameters->first_flagged_entry = CAM_INTF_PARM_MAX;
-    AddSetMetaEntryToBatch(mParameters, CAM_INTF_PARM_HAL_VERSION,
-                sizeof(hal_version), &hal_version);
-
-    AddSetMetaEntryToBatch(mParameters, CAM_INTF_META_STREAM_INFO,
-                sizeof(stream_config_info), &stream_config_info);
-
-    mCameraHandle->ops->set_parms(mCameraHandle->camera_handle, mParameters);
+    mStreamConfigInfo = stream_config_info;
 
     /* Initialize mPendingRequestInfo and mPendnigBuffersMap */
     mPendingRequestsList.clear();
@@ -1598,6 +1587,19 @@ int QCamera3HardwareInterface::processCaptureRequest(
     // stream on all streams
     if (mFirstRequest) {
 
+    // settings/parameters don't carry over for new configureStreams
+    int32_t hal_version = CAM_HAL_V3;
+    memset(mParameters, 0, sizeof(metadata_buffer_t));
+
+    mParameters->first_flagged_entry = CAM_INTF_PARM_MAX;
+    AddSetMetaEntryToBatch(mParameters, CAM_INTF_PARM_HAL_VERSION,
+                sizeof(hal_version), &hal_version);
+
+    AddSetMetaEntryToBatch(mParameters, CAM_INTF_META_STREAM_INFO,
+                sizeof(cam_stream_size_info_t), &mStreamConfigInfo);
+
+    mCameraHandle->ops->set_parms(mCameraHandle->camera_handle, mParameters);
+
         for (size_t i = 0; i < request->num_output_buffers; i++) {
             const camera3_stream_buffer_t& output = request->output_buffers[i];
             QCamera3Channel *channel = (QCamera3Channel *)output.stream->priv;
@@ -1728,7 +1730,7 @@ int QCamera3HardwareInterface::processCaptureRequest(
     }
 
     if(request->input_buffer == NULL) {
-       rc = setFrameParameters(request, streamID);
+       rc = setFrameParameters(request, streamID, blob_request);
         if (rc < 0) {
             ALOGE("%s: fail to set frame parameters", __func__);
             pthread_mutex_unlock(&mMutex);
@@ -4952,13 +4954,15 @@ camera_metadata_t* QCamera3HardwareInterface::translateCapabilityToMetadata(int 
  * PARAMETERS :
  *   @request   : request that needs to be serviced
  *   @streamID : Stream ID of all the requested streams
+ *   @blob_request: Whether this request is a blob request or not
  *
  * RETURN     : success: NO_ERROR
  *              failure:
  *==========================================================================*/
 int QCamera3HardwareInterface::setFrameParameters(
                     camera3_capture_request_t *request,
-                    cam_stream_ID_t streamID)
+                    cam_stream_ID_t streamID,
+                    int blob_request)
 {
     /*translate from camera_metadata_t type to parm_type_t*/
     int rc = 0;
@@ -4999,6 +5003,8 @@ int QCamera3HardwareInterface::setFrameParameters(
     if(request->settings != NULL){
         mRepeatingRequest = false;
         rc = translateToHalMetadata(request, mParameters);
+        if (blob_request)
+                memcpy(mPrevParameters, mParameters, sizeof(metadata_buffer_t));
     } else {
        mRepeatingRequest = true;
     }
