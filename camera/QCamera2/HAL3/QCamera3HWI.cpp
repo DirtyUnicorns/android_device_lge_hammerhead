@@ -1596,7 +1596,14 @@ int QCamera3HardwareInterface::processCaptureRequest(
                 sizeof(hal_version), &hal_version);
 
     AddSetMetaEntryToBatch(mParameters, CAM_INTF_META_STREAM_INFO,
-                sizeof(cam_stream_size_info_t), &mStreamConfigInfo);
+                sizeof(mStreamConfigInfo), &mStreamConfigInfo);
+
+        for (uint32_t i = 0; i < mStreamConfigInfo.num_streams; i++) {
+		     ALOGD("%s STREAM INFO : type %d, wxh: %d x %d",
+                     __func__, mStreamConfigInfo.type[i],
+                     mStreamConfigInfo.stream_sizes[i].width,
+                     mStreamConfigInfo.stream_sizes[i].height);
+        }
 
     mCameraHandle->ops->set_parms(mCameraHandle->camera_handle, mParameters);
 
