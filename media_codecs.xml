@@ -64,7 +64,6 @@
         </MediaCodec>
     </Encoders>
     <Decoders>
-        <!-- Disabling this fixes Youtube autoplay
         <MediaCodec name="OMX.qcom.video.decoder.avc" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
@@ -76,7 +75,7 @@
             <Limit name="bitrate" range="1-100000000" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="13" />
-        </MediaCodec> -->
+        </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.avc.secure" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
