@@ -201,9 +201,14 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     power.msm8974
 
+
 # Thermal HAL
 PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl
+
+# Doze mode
+PRODUCT_PACKAGES += \
+    HammerheadDoze
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
