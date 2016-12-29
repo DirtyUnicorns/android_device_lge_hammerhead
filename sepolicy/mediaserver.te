@@ -16,3 +16,6 @@ allow mediaserver audio_device:chr_file rw_file_perms;
 
 # For text relocations in /system/vendor/lib/libmmjpeg.so
 allow mediaserver system_file:file execmod;
+
+# Permit HDCP negotiations for wifi display / casting
+allow mediaserver tee_device:chr_file rw_file_perms;
