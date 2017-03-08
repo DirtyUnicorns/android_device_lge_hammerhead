@@ -11,9 +11,6 @@ LOCAL_PRIVILEGED_MODULE := true
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
-LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res \
-    $(LOCAL_PATH)/../../../../packages/resources/devicesettings/res
-
 include $(BUILD_PACKAGE)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
