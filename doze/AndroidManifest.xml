@@ -11,8 +11,8 @@
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
     <uses-sdk
-        android:minSdkVersion="21"
-        android:targetSdkVersion="21"/>
+        android:minSdkVersion="26"
+        android:targetSdkVersion="26"/>
 
     <application
         android:label="HammerheadDoze"
@@ -32,16 +32,7 @@
         <activity
             android:name=".DozeSettings"
             android:label="@string/ambient_display_title"
-            android:theme="@android:style/Theme.Material.Settings">
-            <intent-filter>
-                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.device" />
-            <meta-data
-                android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_settings_doze" />
+            android:theme="@android:style/Theme.DeviceDefault.Settings">
         </activity>
 
     </application>
