@@ -200,6 +200,8 @@ PRODUCT_PACKAGES += \
     mm-qcamera-app
 
 PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service \
     keystore.msm8974
 
 PRODUCT_PACKAGES += \
