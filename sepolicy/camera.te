@@ -8,7 +8,12 @@ init_daemon_domain(camera)
 # Interact with other media devices
 allow camera video_device:dir search;
 allow camera { gpu_device video_device }:chr_file rw_file_perms;
-allow camera { cameraserver surfaceflinger mediaserver }:fd use;
+allow camera { surfaceflinger cameraserver mediaserver hal_graphics_allocator }:fd use;
+hal_client_domain(camera, hal_graphics_allocator)
+
+allow camera self:capability { sys_nice };
+
+allow camera hal_renderscript_hwservice:hwservice_manager find;
 
 # Create front and back camera sockets (/data/cam_socket[12])
 type_transition camera system_data_file:sock_file camera_socket "cam_socket1";
