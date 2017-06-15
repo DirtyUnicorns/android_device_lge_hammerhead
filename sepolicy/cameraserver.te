@@ -1,6 +1,4 @@
 unix_socket_send(cameraserver, camera, camera)
-allow cameraserver mpdecision_socket:dir r_dir_perms;
-unix_socket_send(cameraserver, mpdecision, mpdecision)
 allow cameraserver camera_data_file:sock_file write;
 allow cameraserver property_socket:sock_file { open read write ioctl };
 allow cameraserver init:unix_stream_socket connectto;
@@ -10,6 +8,9 @@ allow cameraserver cameraserver:fd use;
 
 allow cameraserver sysfs:dir { read open };
 allow cameraserver sysfs:file { read write getattr open };
+
+# For text relocations in /system/vendor/lib/libmmjpeg.so
+allow cameraserver system_file:file execmod;
 
 # Allow access to sysfs
 allow cameraserver sysfs:file { getattr read open };
