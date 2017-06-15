@@ -152,9 +152,6 @@ on post-fs-data
     write /persist/sensors/sensors_settings 1
     chmod 660 /persist/sensors/sensors_settings
 
-    # communicate with mpdecision and thermald
-    mkdir /dev/socket/mpdecision 2770 root system
-
     # save rtc time offsets
     mkdir /data/system/time 0700 system system
 
@@ -358,12 +355,6 @@ service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -
 #    disabled
 #    oneshot
 #    keycodes 114 115 116
-
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
-   class main
-   user root
-   group root system
-   disabled
 
 service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc
     class main
