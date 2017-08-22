@@ -430,6 +430,10 @@ endif
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
+# USB HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 # facelock properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.facelock.black_timeout=400 \
