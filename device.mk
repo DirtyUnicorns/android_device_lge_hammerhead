@@ -428,7 +428,7 @@ PRODUCT_COPY_FILES += \
 endif
 
 # setup dalvik vm configs.
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, vendor/extras/configs/phone-xhdpi-2048-dalvik-heap.mk)
 
 # USB HAL
 PRODUCT_PACKAGES += \
