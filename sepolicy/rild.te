@@ -5,3 +5,7 @@ qmux_socket(rild)
 allow rild self:socket ioctl;
 allowxperm rild self:socket ioctl msm_sock_ipc_ioctls;
 allowxperm rild self:udp_socket ioctl priv_sock_ioctls;
+
+#try to fix data reconection
+allow rild system_data_file:lnk_file { getattr };
+allow rild system_data_file:lnk_file { read };
