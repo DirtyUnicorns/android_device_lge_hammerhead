@@ -188,6 +188,7 @@ PRODUCT_PACKAGES += \
     keystore.msm8974
 
 PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-impl \
     power.msm8974
 
 # GPS configuration
