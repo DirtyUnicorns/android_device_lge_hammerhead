@@ -233,6 +233,7 @@ PRODUCT_PACKAGES += \
     libion
 
 PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-impl \
     lights.hammerhead
 
 PRODUCT_PACKAGES += \
