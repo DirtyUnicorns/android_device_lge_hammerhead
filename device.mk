@@ -282,6 +282,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl
 
+# Sensors HAL
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl
+
 # Set sensor streaming rate
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.max_geomag_rotv=60 \
