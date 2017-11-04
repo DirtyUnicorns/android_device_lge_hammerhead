@@ -175,6 +175,8 @@ PRODUCT_COPY_FILES += \
     device/lge/hammerhead/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl \
+    camera.device@3.2-impl \
     libqomx_core \
     libmmcamera_interface \
     libmmjpeg_interface \
