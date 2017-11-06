@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.doze;
+package com.custom.ambient.display;
 
 import android.content.Context;
 import android.hardware.Sensor;
