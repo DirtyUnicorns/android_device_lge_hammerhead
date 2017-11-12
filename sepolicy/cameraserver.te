@@ -3,14 +3,15 @@ allow cameraserver camera_data_file:sock_file write;
 allow cameraserver property_socket:sock_file { open read write ioctl };
 allow cameraserver init:unix_stream_socket connectto;
 
+# For text relocations in /system/vendor/lib/libmmjpeg.so
+allow cameraserver system_file:file execmod;
+allow cameraserver vendor_file:file execmod;
+
 allow cameraserver camera_device:chr_file { open read write ioctl };
 allow cameraserver cameraserver:fd use;
 
 allow cameraserver sysfs:dir { read open };
 allow cameraserver sysfs:file { read write getattr open };
-
-# For text relocations in /system/vendor/lib/libmmjpeg.so
-allow cameraserver system_file:file execmod;
 
 # Allow access to sysfs
 allow cameraserver sysfs:file { getattr read open };
