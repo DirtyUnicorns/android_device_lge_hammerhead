@@ -1,0 +1,10 @@
+allow hal_camera_default vndbinder_device:chr_file read;
+allow hal_camera_default vndbinder_device:chr_file write;
+allow hal_camera_default vndbinder_device:chr_file open;
+allow hal_camera_default vndbinder_device:chr_file ioctl;
+allow hal_camera_default camera_socket:sock_file write;
+allow hal_camera_default camera:unix_dgram_socket sendto;
+allow hal_camera_default sysfs:file read;
+allow hal_camera_default sysfs:file open;
+allow hal_camera_default sysfs:file getattr;
+

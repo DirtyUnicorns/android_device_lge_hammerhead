@@ -53,3 +53,6 @@ allow camera storage_file:lnk_file { getattr read write open };
 allow camera mnt_user_file:dir { getattr read write open search };
 allow camera mnt_user_file:lnk_file { getattr read write open };
 allow camera fuse:dir { getattr read write open search };
+
+allow camera hal_camera_default:fd use;
+allow camera untrusted_app_25:fd use;
