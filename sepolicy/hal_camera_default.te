@@ -8,3 +8,10 @@ allow hal_camera_default sysfs:file read;
 allow hal_camera_default sysfs:file open;
 allow hal_camera_default sysfs:file getattr;
 
+# Text relocations in libmmjpeg
+allow hal_camera_default vendor_file:file execmod;
+allow hal_camera_default system_file:file execmod;
+
+allow hal_camera_default mediaserver:binder transfer;
+allow hal_camera_default mediaserver:binder call;
+
