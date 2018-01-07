@@ -28,6 +28,10 @@ TARGET_SELINUX_CONFIG := unicornblood_defconfig
 # ro.product.first_api_level indicates the first api level the device has commercially launched on.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=19
+    
+# bluetooth: Add aptX & aptXHD for confirmed platforms  
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.bt.enableAptXHD=true
 
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/init.hammerhead.rc:root/init.hammerhead.rc \
