@@ -16,3 +16,5 @@ allow time self:socket *;
 allowxperm time self:socket ioctl msm_sock_ipc_ioctls;
 
 allow time self:capability { setuid setgid };
+
+allow time time:capability { sys_time };
