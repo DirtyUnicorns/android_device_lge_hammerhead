@@ -56,3 +56,4 @@ allow camera fuse:dir { getattr read write open search };
 
 allow camera hal_camera_default:fd use;
 allow camera untrusted_app_25:fd use;
+allow camera untrusted_app:fd use;
